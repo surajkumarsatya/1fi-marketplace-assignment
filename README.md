@@ -1,36 +1,259 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 1Fi Marketplace
+
+A responsive **1Fi Marketplace** experience built as part of the **1Fi SDE Intern Assignment**.
+
+The project extends the existing Shop experience with a dedicated Marketplace section where users can browse products, view product details, select product variants, explore EMI plans, select an EMI option, and proceed through the EMI confirmation flow.
+
+---
+
+## Features
+
+- Product listing
+- Product images
+- Product names
+- Product pricing
+- Product brands
+- Product ratings
+- Stock availability
+- Product variants
+- Dynamic pricing based on selected variant
+- EMI options and plans
+- EMI duration and interest rate
+- Monthly EMI calculation
+- Total payable amount
+- EMI plan selection
+- Selected EMI summary
+- EMI confirmation flow
+- Confirmation success state
+- Responsive UI
+- Loading and error handling
+- Reusable React components
+- Type-safe data handling
+
+---
+
+## Architecture
+
+The Marketplace follows a separation of concerns between UI components, business logic, and data/service handling.
+
+```
+                 ┌──────────────────┐
+                 │    Shop Page     │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ 1Fi Marketplace  │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Marketplace      │
+                 │ Service / Data   │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Product Listing  │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Product Details  │
+                 └────────┬─────────┘
+                          │
+               ┌──────────┴──────────┐
+               │                     │
+               ▼                     ▼
+       Variant Selection      EMI Selection
+               │                     │
+               └──────────┬──────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │   EMI Summary    │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ Proceed with EMI │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │ EMI Confirmation │
+                 └────────┬─────────┘
+                          │
+                          ▼
+                 ┌──────────────────┐
+                 │   Success State  │
+                 └──────────────────┘
+```
+
+---
+
+## Tech Stack
+
+- Next.js 16
+- React
+- TypeScript
+- Tailwind CSS
+- Lucide React
+- Next.js Image
+- ESLint
+
+---
+
+## Marketplace Flow
+
+```
+Shop
+  │
+  ▼
+1Fi Marketplace
+  │
+  ▼
+Product Listing
+  │
+  ▼
+Select Product
+  │
+  ▼
+Product Details
+  │
+  ├── Product Information
+  │
+  ├── Select Variant
+  │
+  ├── View EMI Plans
+  │
+  ├── Select EMI Plan
+  │
+  └── Review EMI Summary
+          │
+          ▼
+    Proceed with EMI
+          │
+          ▼
+    EMI Confirmation
+          │
+          ▼
+   Confirmation Success
+```
+
+---
+
+## Project Structure
+
+```
+src/
+│
+├── app/
+│   │
+│   └── shop/
+│       ├── page.tsx
+│       │
+│       └── products/
+│           └── [id]/
+│               └── page.tsx
+│
+├── components/
+│   │
+│   └── marketplace/
+│       ├── marketplace-header.tsx
+│       ├── product-card.tsx
+│       ├── product-details.tsx
+│       ├── variant-selector.tsx
+│       ├── emi-selector.tsx
+│       ├── product-description.tsx
+│       ├── emi-summary.tsx
+│       ├── proceed-button.tsx
+│       ├── emi-confirmation.tsx
+│       └── confirmation-success.tsx
+│
+├── services/
+│   │
+│   └── marketplace/
+│       ├── marketplace.service.ts
+│       └── marketplace.types.ts
+│
+└── lib/
+    └── emi.ts
+```
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+Make sure you have Node.js and npm installed.
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/<your-username>/<your-repo-name>.git
+cd <your-repo-name>
+```
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+### Run the Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open the application at [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+### Development
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Starts the Next.js development server.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### Lint
 
-## Deploy on Vercel
+```bash
+npm run lint
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Runs ESLint against the project.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### Production Build
+
+```bash
+npm run build
+```
+
+Creates an optimized production build.
+
+### Production Server
+
+```bash
+npm run start
+```
+
+Starts the application using the production build.
+
+---
+
+## Routes
+
+### Shop — `/shop`
+
+The main Shop experience containing the Marketplace section.
+
+### Product Details — `/shop/products/[id]`
+
+Dynamic product details page for individual Marketplace products.
